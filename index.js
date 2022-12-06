@@ -83,6 +83,32 @@ const internQs = [
 
 // Array of Employee objects
 const teamRoster = [];
+// create array of engineers and array of interns
+const engineers = [];
+const interns = [];
+
+// remove console logs 
+function addEngineer() {
+    inquirer
+        .prompt(engineerQs)
+        .then(engineerData => {
+            console.log(engineerData);
+            // create Engineer object and push to teamRoster array
+            engineers.push(engineerData.engineerName, engineerData.ID, engineerData.email, engineerData.github);
+            showMenu();
+        });
+}
+
+function addIntern() {
+    inquirer
+        .prompt(internQs)
+        .then(internData => {
+            console.log(internData);
+            // create Intern object and push to teamRoster array
+            interns.push(internData.engineerName, internData.ID, internData.email, internData.school);
+            showMenu();
+        });
+}
 
 function showMenu() {
     inquirer
@@ -91,11 +117,11 @@ function showMenu() {
             console.log(menuA);
             if (menuA.next === "Add engineer") {
                 console.log("Add engineer");
-                //addEngineer();
+                addEngineer();
                 return;
             } else if (menuA.next === "Add intern") {
                 console.log("Add intern");
-                //addIntern();
+                addIntern();
                 return;
             } else {
                 console.log("Finish");
