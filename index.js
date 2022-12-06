@@ -80,3 +80,38 @@ const internQs = [
         name: "school"
     }
 ]
+
+// Array of Employee objects
+const teamRoster = [];
+
+function showMenu() {
+    inquirer
+        .prompt(menuQ)
+        .then(menuA => {
+            console.log(menuA);
+            if (menuA.next === "Add engineer") {
+                console.log("Add engineer");
+                //addEngineer();
+                return;
+            } else if (menuA.next === "Add intern") {
+                console.log("Add intern");
+                //addIntern();
+                return;
+            } else {
+                console.log("Finish");
+                // call function to generate HTML webpage
+                console.log("Team roster generated!");
+                return;
+            }
+        });
+}
+
+inquirer
+    .prompt(managerQs)
+    .then(managerData => {
+        console.log(managerData);
+        // create Manager object and push to teamRoster array
+        teamRoster.push(new Manager(managerData.managerName, managerData.ID, managerData.email, managerData.officeNum));
+        console.log(teamRoster);
+        showMenu();
+    });
