@@ -1,8 +1,13 @@
+// Require Node packages
 const inquirer = require("inquirer");
+const fs = require("fs");
+
+// Require all Employee child classes
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 
+// Questions about team manager
 const managerQs = [
     {
         type: "input",
@@ -26,6 +31,7 @@ const managerQs = [
     }
 ];
 
+// Menu options about next step
 const menuQ = [
     {
         type: "list",
@@ -35,6 +41,7 @@ const menuQ = [
     }
 ];
 
+// Questions about engineer
 const engineerQs = [
     {
         type: "input",
@@ -58,6 +65,7 @@ const engineerQs = [
     }
 ]
 
+// Questions about intern
 const internQs = [
     {
         type: "input",
@@ -81,63 +89,68 @@ const internQs = [
     }
 ]
 
-// Array of Employee objects
+// Array of all Employee objects
 const teamRoster = [];
-// create array of engineers and array of interns
+// Array of only engineers and array of only interns
 const engineers = [];
 const interns = [];
 
-// remove console logs 
+// remove console logs
+// Prompt user for engineer information
 function addEngineer() {
     inquirer
         .prompt(engineerQs)
         .then(engineerData => {
             console.log(engineerData);
-            // create Engineer object and push to teamRoster array
-            engineers.push(engineerData.engineerName, engineerData.ID, engineerData.email, engineerData.github);
+            // Create new Engineer object with user input and push to engineers array
+            engineers.push(new Engineer(engineerData.engineerName, engineerData.ID, engineerData.email, engineerData.github));
             showMenu();
         });
 }
 
+// Prompt user for intern information
 function addIntern() {
     inquirer
         .prompt(internQs)
         .then(internData => {
             console.log(internData);
-            // create Intern object and push to teamRoster array
-            interns.push(internData.engineerName, internData.ID, internData.email, internData.school);
+            // Create new Intern object with user input and push to interns array
+            interns.push(new Intern(internData.internName, internData.ID, internData.email, internData.school));
             showMenu();
         });
 }
 
+// Display menu options for next step
 function showMenu() {
     inquirer
         .prompt(menuQ)
         .then(menuA => {
-            console.log(menuA);
             if (menuA.next === "Add engineer") {
-                console.log("Add engineer");
                 addEngineer();
-                return;
             } else if (menuA.next === "Add intern") {
-                console.log("Add intern");
                 addIntern();
-                return;
             } else {
                 console.log("Finish");
                 // call function to generate HTML webpage
                 console.log("Team roster generated!");
-                return;
             }
+            return;
         });
 }
 
-inquirer
-    .prompt(managerQs)
-    .then(managerData => {
-        console.log(managerData);
-        // create Manager object and push to teamRoster array
-        teamRoster.push(new Manager(managerData.managerName, managerData.ID, managerData.email, managerData.officeNum));
-        console.log(teamRoster);
-        showMenu();
-    });
+// Start application with this function and prompt user to enter manager info
+function init(){
+    console.log("Welcome to the Team Generator!");
+    console.log("Please build your team roster.");
+
+    inquirer
+        .prompt(managerQs)
+        .then(managerData => {
+            console.log(managerData);
+            // Create new Manager object with user input and push to teamRoster array
+            teamRoster.push(new Manager(managerData.managerName, managerData.ID, managerData.email, managerData.officeNum));
+            showMenu();
+        });
+}
+
+init();
