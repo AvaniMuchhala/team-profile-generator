@@ -1,11 +1,25 @@
-function generateCard(teamRoster){
-    const employee1 = teamRoster[0];
-    const employeeType = employee1.constructor.name;
-    if (employeeType === "Manager") {
-        var {name, id, email, officeNumber} = employee1;
-        console.log(`${name}, ${id}, ${email}, ${employee1.getOfficeNumber()}`);
-    }
-    return `<div class="card shadow" style="width: 18rem;">
+function generateCards(teamRoster) {
+    // Map through each element in teamRoster, generate HTML for that element, store in cardsHTML
+    const cardsHTML = teamRoster.map(employee => {
+        const employeeType = employee.constructor.name; // gets type of object
+        const {name, id, email, _} = employee;
+        let uniqueProp;
+        let uniqueValue;
+        // Depending on which type current employee is, 
+        // set uniqueProp and uniqueValue as last prop/value in their constructor
+        if (employeeType === "Manager") {
+            uniqueProp = "Office Number";
+            uniqueValue = employee.getOfficeNumber();
+        } else if (employeeType === "Engineer") {
+            uniqueProp = "Github";
+            uniqueValue = employee.getGithub();
+        } else if (employeeType === "Intern") {
+            uniqueProp = "School";
+            uniqueValue = employee.getSchool();
+        }
+        
+        // Return HTML to generate card for that employee
+        return `<div class="card shadow" style="width: 18rem;">
     <div class="card-header bg-primary text-white">
         <h3>${name}</h3>
         <h4>${employeeType}</h4>
@@ -14,14 +28,17 @@ function generateCard(teamRoster){
         <ul class="list-group">
             <li class="list-group-item">ID: ${id}</li>
             <li class="list-group-item">Email: ${email}</li>
-            <li class="list-group-item">Office number: ${employee1.getOfficeNumber()}</li>
+            <li class="list-group-item">${uniqueProp}: ${uniqueValue}</li>
         </ul>
     </div>
 </div>`;
+    });
+
+    // Return result of joining each employee card HTML by a new line 
+    return cardsHTML.join("\n");
 }
 
 function generateHTML(teamRoster) {
-    generateCard(teamRoster);
     return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -38,7 +55,7 @@ function generateHTML(teamRoster) {
         </header>    
     
         <main class="d-flex justify-content-center align-items-center">
-            ${generateCard(teamRoster)}
+            ${generateCards(teamRoster)}
         </main>
     </body>
     </html>`;
