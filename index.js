@@ -6,6 +6,7 @@ const fs = require("fs");
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
+const generateHTML = require("./src/generateHTML.js");
 
 // Questions about team manager
 const managerQs = [
@@ -90,7 +91,7 @@ const internQs = [
 ]
 
 // Array of all Employee objects
-const teamRoster = [];
+let teamRoster = [];
 // Array of only engineers and array of only interns
 const engineers = [];
 const interns = [];
@@ -130,9 +131,12 @@ function showMenu() {
             } else if (menuA.next === "Add intern") {
                 addIntern();
             } else {
-                console.log("Finish");
-                // call function to generate HTML webpage
-                console.log("Team roster generated!");
+                // Append engineers and interns array to teamRoster array
+                teamRoster = teamRoster.concat(engineers).concat(interns);
+                console.log(teamRoster);
+                fs.writeFile("roster.html", generateHTML(teamRoster), err =>
+                    err ? console.error(err) : console.log("Team roster generated!")
+                );                
             }
             return;
         });
