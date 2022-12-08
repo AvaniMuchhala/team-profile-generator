@@ -14,7 +14,6 @@ function generateCards(teamRoster) {
             iconClass = "fa-solid fa-people-roof";
         } else if (employeeType === "Engineer") {
             uniqueProp = "GitHub";
-            //uniqueValue = employee.getGithub();
             uniqueValue = `<a href="https://github.com/${employee.getGithub()}" target="_blank"
             style="text-decoration: none;">${employee.getGithub()}</a>`;
             iconClass = "fa-solid fa-laptop-code";
