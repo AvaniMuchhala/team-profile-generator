@@ -8,27 +8,72 @@ const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const generateHTML = require("./src/generateHTML.js");
 
+function validateName(input) {
+    // If user inputted no text
+    if (input.trim().length === 0) {
+        return "Required.";
+    // Allow for name to include special chars & nums but confirm it contains at least one letter
+    } else if (!(/[a-zA-Z]/.test(input.trim()))) {
+        return "Invalid. Name must include at least one letter.";
+    } else {
+        return true;
+    }
+}
+
+function validateNumber(input) {
+    // If user inputted no text
+    if (input.trim().length === 0) {
+        return "Required.";
+    // Confirm ID / office number only contains digits
+    } else if (!(/^\d+$/.test(input.trim()))) {
+        return "Invalid. Only numbers are allowed.";
+    } else {
+        return true;
+    }
+}
+
+function validateEmail(input) {
+    // If user inputted no text
+    if (input.trim().length === 0) {
+        return "Required.";
+    // Confirm email includes mail server & domain
+    } else if (!(input.trim().includes("@") && input.trim().includes("."))) {
+        return "Invalid email. Must include domain name (i.e. name@test.com)."
+    } else {
+        return true;
+    }
+}
+
 // Questions about team manager
 const managerQs = [
     {
         type: "input",
         message: "Enter name of team manager:",
-        name: "managerName"
+        name: "managerName",
+        validate: (input) => validateName(input),
+        // Return the input without extra spaces to be used in rest of program 
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter manager's ID:",
-        name: "ID"
+        name: "ID",
+        validate: (input) => validateNumber(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter manager's email address:",
-        name: "email"
+        name: "email",
+        validate: (input) => validateEmail(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter manager's office number:",
-        name: "officeNum"
+        name: "officeNum",
+        validate: (input) => validateNumber(input),
+        filter: (input) => input.trim()
     }
 ];
 
@@ -47,22 +92,40 @@ const engineerQs = [
     {
         type: "input",
         message: "Enter engineer's name:",
-        name: "engineerName"
+        name: "engineerName",
+        validate: (input) => validateName(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter engineer's ID:",
-        name: "ID"
+        name: "ID",
+        validate: (input) => validateNumber(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter engineer's email address:",
-        name: "email"
+        name: "email",
+        validate: (input) => validateEmail(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter engineer's GitHub username:",
-        name: "github"
+        name: "github",
+        validate: (input) => {
+            // If user inputted no text
+            if (input.trim().length === 0) {
+                return "Required.";
+            // If input includes spaces between text
+            } else if (input.trim().includes(" ")) {
+                return "GitHub username cannot include spaces. Re-enter username.";
+            } else {
+                return true;
+            }
+        },
+        filter: (input) => input.trim()
     }
 ]
 
@@ -71,22 +134,31 @@ const internQs = [
     {
         type: "input",
         message: "Enter intern's name:",
-        name: "internName"
+        name: "internName",
+        validate: (input) => validateName(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter intern's ID:",
-        name: "ID"
+        name: "ID",
+        validate: (input) => validateNumber(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter intern's email address:",
-        name: "email"
+        name: "email",
+        validate: (input) => validateEmail(input),
+        filter: (input) => input.trim()
     },
     {
         type: "input",
         message: "Enter intern's school:",
-        name: "school"
+        name: "school",
+        // Like names, confirm that school name has at least one letter
+        validate: (input) => validateName(input),
+        filter: (input) => input.trim()
     }
 ]
 
