@@ -18,6 +18,19 @@ describe("Intern", () => {
             expect(obj.email).toEqual(email);
             expect(obj.school).toEqual(school);
         });
+
+        it("should throw an error if provided no arguments or incomplete arguments", () => {
+            // Arrange
+            const err = new Error("Must provide all 4 arguments");
+            
+            // Act
+            const cb1 = () => new Intern();    // 0 arguments
+            const cb2 = () => new Intern("Sam", 3, "sam@test.edu");  // 3 arguments
+            
+            // Assert
+            expect(cb1).toThrowError(err);
+            expect(cb2).toThrowError(err);
+        });
     });
 
     describe("Methods", () => {

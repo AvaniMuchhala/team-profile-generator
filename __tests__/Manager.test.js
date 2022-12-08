@@ -19,26 +19,18 @@ describe("Manager", () => {
             expect(obj.officeNumber).toEqual(officeNumber);
         });
 
-        // it("should throw an error if provided no arguments or incomplete arguments", () => {
-        //     // Arrange
-        //     const errName = new Error("Expected required parameter 'name' to be a non-empty string");
-        //     const errID = new Error("Expected required parameter 'id' to be a number");
-        //     const errEmail = new Error("Expected required parameter 'email' to be a non-empty string");
-        //     const errOfficeNum = new Error("Expected required parameter 'officeNumber' to be a number");
-
-        //     const cb1 = () => new Manager();    // 0 arguments
-        //     const cb2 = () => new Manager("Nick");  // 1 argument
-        //     const cb3 = () => new Manager("Nick", 1);   // 2 arguments
-        //     const cb4 = () => new Manager("Nick", 1, "nick@test.edu"); // 3 arguments
-        //     const cb5 = () => new Manager("Nick", 1, "nick@test.edu", 100); // all 4 arguments
+        it("should throw an error if provided no arguments or incomplete arguments", () => {
+            // Arrange
+            const err = new Error("Must provide all 4 arguments");
             
-        //     // Assert
-        //     expect(cb1).toThrowError(errName);
-        //     expect(cb2).toThrowError(errID);
-        //     expect(cb3).toThrowError(errEmail);
-        //     expect(cb4).toThrowError(errOfficeNum);
-        //     expect(cb5).not.toThrow();  // cb5 should NOT throw any error
-        // });
+            // Act
+            const cb1 = () => new Manager();    // 0 arguments
+            const cb2 = () => new Manager("Nick", 1, "nick@test.edu");  // 3 arguments
+            
+            // Assert
+            expect(cb1).toThrowError(err);
+            expect(cb2).toThrowError(err);
+        });
     });
 
 
