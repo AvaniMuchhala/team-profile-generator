@@ -24,7 +24,8 @@ function generateCards(teamRoster) {
         }
         
         // Return HTML to generate card for that employee
-        return `<div class="col d-flex justify-content-center mt-4">
+        return `
+<div class="col d-flex justify-content-center mt-4">
     <div class="card shadow "style="width: 20rem;">
         <div class="card-header bg-primary text-white">
             <h3 class="fs-2">${name}</h3>
@@ -48,7 +49,7 @@ function generateCards(teamRoster) {
 
 function generateHTML(teamRoster) {
     return `<!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
     
     <head>
         <meta charset="UTF-8">
@@ -66,12 +67,13 @@ function generateHTML(teamRoster) {
         <main class="d-flex justify-content-center align-items-center">
             
             <section class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-flex flex-wrap justify-content-center align-items-center w-75">
-            ${generateCards(teamRoster)}
+                ${generateCards(teamRoster)}
             </section>
         
-    </main>
-    <script src="https://kit.fontawesome.com/9f96f948a1.js" crossorigin="anonymous"></script>
-</body>
+        </main>
+
+        <script src="https://kit.fontawesome.com/9f96f948a1.js" crossorigin="anonymous"></script>
+    </body>
 
 </html>`;
 }

@@ -168,13 +168,11 @@ let teamRoster = [];
 const engineers = [];
 const interns = [];
 
-// remove console logs
 // Prompt user for engineer information
 function addEngineer() {
     inquirer
         .prompt(engineerQs)
         .then(engineerData => {
-            console.log(engineerData);
             // Create new Engineer object with user input and push to engineers array
             engineers.push(new Engineer(engineerData.engineerName, engineerData.ID, engineerData.email, engineerData.github));
             showMenu();
@@ -186,7 +184,6 @@ function addIntern() {
     inquirer
         .prompt(internQs)
         .then(internData => {
-            console.log(internData);
             // Create new Intern object with user input and push to interns array
             interns.push(new Intern(internData.internName, internData.ID, internData.email, internData.school));
             showMenu();
@@ -205,8 +202,7 @@ function showMenu() {
             } else {
                 // Append engineers and interns array to teamRoster array
                 teamRoster = teamRoster.concat(engineers).concat(interns);
-                console.log(teamRoster);
-                fs.writeFile("roster.html", generateHTML(teamRoster), err =>
+                fs.writeFile("./dist/index.html", generateHTML(teamRoster), err =>
                     err ? console.error(err) : console.log("Team roster generated!")
                 );                
             }
@@ -222,7 +218,6 @@ function init(){
     inquirer
         .prompt(managerQs)
         .then(managerData => {
-            console.log(managerData);
             // Create new Manager object with user input and push to teamRoster array
             teamRoster.push(new Manager(managerData.managerName, managerData.ID, managerData.email, managerData.officeNum));
             showMenu();
