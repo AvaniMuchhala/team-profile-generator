@@ -28,7 +28,8 @@ node index.js
 
 Enter the information that each prompt requests regarding your team members. The app will alert you if you provide an invalid input. You will start by providing information about the manager. Then, you will be asked whether you want to add an engineer, add an intern, or finish building the team roster. You may add as many engineers and interns as you want. When you are done building your team roster, select "Finish" from the menu. This will end the application and generate an "index.html" within the "dist" folder that displays a nicely formatted team roster from your input.
 
-Here is a walkthrough video demonstrating the functionality of the application and how to run the unit tests (also displayed below):
+Here is a [walkthrough video](https://drive.google.com/file/d/1YO7XgZRWlTYcMcs3VIFVRPvAWd0opVqg/view?usp=sharing) demonstrating the functionality of the application and how to run the unit tests (also displayed below):
+![team profile generator demo gif](./assets/team-profile-generator-gif.gif)
 
 ## License
 
